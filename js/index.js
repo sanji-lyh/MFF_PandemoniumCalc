@@ -53,38 +53,39 @@ function updateChange(){
 	$("#magicite_normal").text(mag_normal);
 	$("#magicite_remain").text(numberWithCommas(remain_magicite));
 	
-	times_hard = Math.floor(remain_magicite/mag_hard);
-	
-	
-	do{
-		mainLoop:
-		for(var i=times_hard; i >= 0; i--){
-			var j = 0;
-			
-			do {
-				farm_magicite = i * mag_hard + j * mag_normal + current_magicite + amt_distiller;
+	if(current_magicite < GAME.max_magicite){
+		times_hard = Math.floor(remain_magicite/mag_hard);
+		
+		do{
+			mainLoop:
+			for(var i=times_hard; i >= 0; i--){
+				var j = 0;
 				
-				if(farm_magicite < GAME.max_magicite && ((farm_magicite % 20) == 19)){
-					times_hard = i;
-					times_normal = j;
-					break mainLoop;
-				}
-				
-				j++;
-			}while(farm_magicite < GAME.max_magicite);
+				do {
+					farm_magicite = i * mag_hard + j * mag_normal + current_magicite + amt_distiller;
+					
+					if(farm_magicite < GAME.max_magicite && ((farm_magicite % 20) == 19)){
+						times_hard = i;
+						times_normal = j;
+						break mainLoop;
+					}
+					
+					j++;
+				}while(farm_magicite < GAME.max_magicite);
+			}
+			if(farm_magicite < GAME.max_magicite || (farm_magicite % 20) == 19){
+				isFulfilled = true;
+			}
+			else{
+				amt_distiller++;
+			}
+		}while(!isFulfilled);
+		
+		if(farm_magicite > GAME.max_magicite || (farm_magicite % 20) != 19){
+			times_hard = 0;
+			times_normal = 0;
+			amt_distiller = 0;
 		}
-		if(farm_magicite < GAME.max_magicite || (farm_magicite % 20) == 19){
-			isFulfilled = true;
-		}
-		else{
-			amt_distiller++;
-		}
-	}while(!isFulfilled);
-	
-	if(farm_magicite > GAME.max_magicite || (farm_magicite % 20) != 19){
-		times_hard = 0;
-		times_normal = 0;
-		amt_distiller = 0;
 	}
 		
 	until_hard = times_hard * mag_hard + current_magicite + amt_distiller;
