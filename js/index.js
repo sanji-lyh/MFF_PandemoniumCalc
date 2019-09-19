@@ -96,7 +96,7 @@ function updateChange(){
 	if(amt_distiller){
 		$("#use_distiller").show();
 		$("#amt_distiller").text(amt_distiller);
-		$("#until_distiller").text(until_distiller);
+		$("#until_distiller").text(numberWithCommas(until_distiller));
 	}
 	
 	$("#times_hard").text(times_hard);
