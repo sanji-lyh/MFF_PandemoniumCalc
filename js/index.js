@@ -26,13 +26,16 @@ function initDone(){
 	}
 }
 
-function updateChange(){
+function updateChange(){	
 	var times_hard = 0, 
 		until_hard = 0, 
 		times_normal = 0, 
-		until_normal = 0;
+		until_normal = 0,
+		amt_distiller = 0,
+		until_distiller = 0;
 	var farm_magicite;
 	var optimized_magicite;
+	var isFulfilled = false;
 	
 	var mag_hard = 60;
 	var mag_normal = 25; 
@@ -44,38 +47,56 @@ function updateChange(){
 	mag_hard += magicite_seal;
 	mag_normal += magicite_seal;
 	
+	$("#use_distiller").hide();
+	
 	$("#magicite_hard").text(mag_hard);
 	$("#magicite_normal").text(mag_normal);
 	$("#magicite_remain").text(numberWithCommas(remain_magicite));
 	
 	times_hard = Math.floor(remain_magicite/mag_hard);
 	
-mainLoop:
-	for(var i=times_hard; i >= 0; i--){
-		var j = 0;
-		
-		do {
-			farm_magicite = i * mag_hard + j * mag_normal + current_magicite;
+	
+	do{
+		mainLoop:
+		for(var i=times_hard; i >= 0; i--){
+			var j = 0;
 			
-			if(farm_magicite < GAME.max_magicite && ((farm_magicite % 20) == 19)){
-				times_hard = i;
-				times_normal = j;
-				break mainLoop;
-			}
-			
-			j++;
-		}while(farm_magicite < GAME.max_magicite);
-	}
+			do {
+				farm_magicite = i * mag_hard + j * mag_normal + current_magicite + amt_distiller;
+				
+				if(farm_magicite < GAME.max_magicite && ((farm_magicite % 20) == 19)){
+					times_hard = i;
+					times_normal = j;
+					break mainLoop;
+				}
+				
+				j++;
+			}while(farm_magicite < GAME.max_magicite);
+		}
+		if(farm_magicite < GAME.max_magicite || (farm_magicite % 20) == 19){
+			isFulfilled = true;
+		}
+		else{
+			amt_distiller++;
+		}
+	}while(!isFulfilled);
 	
 	if(farm_magicite > GAME.max_magicite || (farm_magicite % 20) != 19){
 		times_hard = 0;
 		times_normal = 0;
-		console.log("NO");
+		amt_distiller = 0;
 	}
 		
-	until_hard = times_hard * mag_hard + current_magicite;
+	until_hard = times_hard * mag_hard + current_magicite + amt_distiller;
 	until_normal = times_normal * mag_normal + until_hard;
 	until_remain = GAME.max_magicite - 1 - until_normal;
+	until_distiller = amt_distiller + current_magicite;
+	
+	if(amt_distiller){
+		$("#use_distiller").show();
+		$("#amt_distiller").text(amt_distiller);
+		$("#until_distiller").text(until_distiller);
+	}
 	
 	$("#times_hard").text(times_hard);
 	$("#until_hard").text(numberWithCommas(until_hard));
