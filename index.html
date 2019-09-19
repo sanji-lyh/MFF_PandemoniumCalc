@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-146421724-1"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-146421724-1');
+	</script>
+
+    <title>Mobius Final Fantasy Damage Ranking Calculator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+	<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+	<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#000000">
+    <meta name="description" content="Mobius Final Fantasy Rift Magicite Farming Calculator / メビウスFF">
+    <meta name="keywords" content="MobiusFF, Final Fantasy, メビウスFF">
+    <meta name="author" content="sanjilyh">
+	<meta charset="UTF-8">
+
+	<link href="css/index.css" rel="stylesheet">
+	<script src="js/data.js"></script>
+	<script src="js/index.js"></script>
+</head>
+
+<body>
+	<div class="d-flex justify-content-center spinner" id="loading_div">
+		<div class="spinner-border" role="status">
+			<span class="sr-only">Loading...</span>
+		</div>
+	</div>
+	<div class="container d-none" id="main_div">
+		<div class="header-bar">
+			<div class="d-flex justify-content-between">
+				<div class="p-2">
+					<h4 class="title_heading">Mobius Final Fantasy - Rift Magicite Farming Calculator</h4>
+				</div>
+			</div>
+        </div>
+		<br/>
+
+		<form id="setting_input">
+			<div class="row mb-2">
+				<div class="col-xs-12 col-sm-3 mb-2">
+					<img src="img/magicite.png"> <b>Hard</b> Mode with Bonus: 
+				</div>
+				
+				<div class="col-xs-12 col-sm-9 mb-2 d-flex align-items-center">
+					<span id="magicite_hard"></span> 
+				</div>
+				
+				<div class="col-xs-12 col-sm-3 mb-2">
+					<img src="img/magicite.png"> <b>Normal</b> Mode with Bonus: <span id="magicite_hard"></span> 
+				</div>
+				
+				<div class="col-xs-12 col-sm-9 mb-2 d-flex align-items-center">
+					<span id="magicite_normal"></span> 
+				</div>
+				
+				<div class="col-xs-12 col-sm-3 mb-2 vcenter">
+					<label for="magicite_seal"><img src="img/magicite_seal.png"> Magicite Seal: </label>
+				</div>
+				<div class="col-xs-12 col-sm-9 mb-2 d-flex align-items-center">
+					<input type="number" class="form-control" name="magicite_seal" value="0" min="0">
+				</div>
+			</div>
+
+			<hr/>
+
+			<div class="row">			
+				<div class="col-xs-12 col-sm-3 mb-2 vcenter">
+					<label for="magicite"><img src="img/magicite.png"> Current Magicite: </label>
+				</div>
+				<div class="col-xs-12 col-sm-9 mb-2 d-flex align-items-center">	
+					<input type="number" class="form-control" name="magicite" value="0" min="0">
+				</div>
+				
+				<div class="col-xs-12 col-sm-3 mb-2 vcenter">
+					<label for="magicite"><img src="img/magicite.png"> Magicite Remain to Cap: </label>
+				</div>
+				<div class="col-xs-12 col-sm-9 mb-2 d-flex align-items-center">	
+					<span id="magicite_remain"></span>
+				</div>
+			</div>
+			<hr/>
+			
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 mb-2 result_panel">		
+					<h3>Result: </h3>
+					<ol>
+						<li class="mb-1"> Farm <b>Hard</b> mode <span class="result_span" id="times_hard"></span> times until you reach <span class="result_span" id="until_hard"></span><img src="img/magicite.png"></li>
+						<li class="mb-1"> Farm <b>Normal</b> mode <span class="result_span" id="times_normal"></span> times until you reach <span class="result_span" id="until_normal"></span><img src="img/magicite.png"></li>
+						<li class="mb-1"> Use distiller / MP first clear to get remaining <span class="result_span"id="until_remain"></span> <img src="img/magicite.png"> to reach <span class="result_span">19,999</span> <img src="img/magicite.png">.</li>
+					</ol>
+				</div>
+			</div>
+		</form>
+		
+		<hr/>
+		<i>Disclaimer: This calculator will only provide us an approximate/estimation value of results to be closest as possible. Please take it at your own risk.</i>
+		<hr/>
+	</div>
+
+
+
+</body>
+</html>
