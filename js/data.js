@@ -1,8 +1,8 @@
-var riftData;
+var pandeData;
 
-function GetRiftMagicite(callback){
-	$.getJSON('./data/rift.json', function(data) {         
-		riftData = data[0];
+function GetPandeMagicite(callback){
+	$.getJSON('./data/pande.json', function(data) {         
+		pandeData = data[0];
 		
 		callback();
 	});

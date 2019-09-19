@@ -15,11 +15,10 @@ function numberWithCommas(x) {
 }
 
 function initDone(){
-	console.log(riftData);
 	
-	if(riftData){
+	if(pandeData){
 		renderCalc();
-		$("input[name='magicite_seal']").val(riftData.MagiciteSeal);
+		$("input[name='magicite_seal']").val(pandeData.MagiciteSeal);
 		updateChange();
 	}
 	else{
@@ -37,7 +36,7 @@ function updateChange(){
 	
 	var mag_hard = 60;
 	var mag_normal = 25; 
-	var magicite_seal = parseInt2($("input[name='magicite_seal']").val()) || riftData.MagiciteSeal
+	var magicite_seal = parseInt2($("input[name='magicite_seal']").val()) || pandeData.MagiciteSeal
 	
 	var current_magicite = parseInt2($("input[name='magicite']").val());
 	var remain_magicite = GAME.max_magicite - current_magicite;
@@ -88,7 +87,7 @@ mainLoop:
 
 function init() {
 	renderLoading();
-	GetRiftMagicite(initDone);
+	GetPandeMagicite(initDone);
 }
 
 function renderLoading() {
