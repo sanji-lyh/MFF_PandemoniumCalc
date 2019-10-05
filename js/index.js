@@ -15,7 +15,6 @@ function numberWithCommas(x) {
 }
 
 function initDone(){
-	
 	if(pandeData){
 		renderCalc();
 		$("input[name='magicite_seal']").val(pandeData.MagiciteSeal);
