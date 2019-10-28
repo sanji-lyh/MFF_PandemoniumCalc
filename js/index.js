@@ -36,13 +36,24 @@ function updateChange(){
 	var optimized_magicite;
 	var isFulfilled = false;
 	
-	var mag_hard = 60;
-	var mag_normal = 25; 
-	var magicite_seal = parseInt2($("input[name='magicite_seal']").val()) || pandeData.MagiciteSeal
+	var mag_hard = 0;
+	var mag_normal = 0; 
 	
+    switch (parseInt($("input[name='bonus']:checked").val())) {
+        case 0:
+            mag_hard = 35;
+            mag_normal = 15;
+            break;
+        case 1:
+            mag_hard = 60;
+            mag_normal = 25;
+            break;
+    }
+    
+	var magicite_seal = parseInt2($("input[name='magicite_seal']").val())
 	var current_magicite = parseInt2($("input[name='magicite']").val());
 	var remain_magicite = GAME.max_magicite - current_magicite;
-		
+    
 	mag_hard += magicite_seal;
 	mag_normal += magicite_seal;
 	
